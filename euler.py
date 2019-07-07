@@ -27,15 +27,44 @@ def energy(X):#エネルギー(ハミルトニアン)
 def euler(n,a,h,Y_a):#陽的Euler法
     Y = Y_a
     F = [t1,t2,td1,td2]
+    T1 = [Y[0]]
+    T2 = [Y[1]]
+    Td1 = [Y[2]]
+    Td2 = [Y[3]]
     E = [energy(Y_a)]
     for i in range(0,n):
         Y = [Y[j]+h*F[j](a+h*i,Y) for j in range(4)]
+        T1.append(cos(Y[0]))
+        T2.append(cos(Y[1]))
+        Td1.append(Y[2])
+        Td2.append(Y[3])
         E.append(energy(Y))
     x = [a+h*i for i in range(n+1)]
-    plt.plot(x,E,"-")
+    plt.plot(x,T1,"-")
+    plt.xlabel("time")
+    plt.ylabel("theta1")
     plt.show()
-n = 10000
+    plt.plot(x,T2,"-")
+    plt.xlabel("time")
+    plt.ylabel("theta2")
+    plt.show()
+    plt.plot(x,Td1,"-")
+    plt.xlabel("time")
+    plt.ylabel("thetadot1")
+    plt.show()
+    plt.plot(x,Td2,"-")
+    plt.xlabel("time")
+    plt.ylabel("thetadot2")
+    plt.show()
+    plt.plot(x,E,"-")
+    plt.xlabel("time")
+    plt.ylabel("Energy")
+    plt.show()
+n = 3000
 a = 0
 h = 0.01
 Y = [0.1,0,0,0]
+euler(n,a,h,Y)
+n = 30000
+h = 0.001
 euler(n,a,h,Y)
