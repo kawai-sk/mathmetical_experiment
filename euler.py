@@ -60,11 +60,8 @@ def euler(n,a,h,Y_a):#陽的Euler法
     plt.xlabel("time")
     plt.ylabel("Energy")
     plt.show()
-n = 3000
-a = 0
-h = 0.01
-Y = [0.1,0,0,0]
-euler(n,a,h,Y)
 n = 30000
+a = 0
 h = 0.001
+Y = [0.1,0,0,0]
 euler(n,a,h,Y)

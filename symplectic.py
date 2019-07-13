@@ -1,6 +1,8 @@
 import sympy
 from sympy import *
 import matplotlib.pyplot as plt
+from matplotlib import cm
+import numpy as np
 x = Symbol("x",real=True)
 
 l_1 = l_2 = 0.5
@@ -27,6 +29,7 @@ def symplectic_euler(n,a,h,T):#T=[t1,t2,td1,td2]
     p2 = m_2*l_1*l_2*cos(T[0]-T[1])*T[2]+m_2*l_2**2*T[3]
     P1 = []
     P2 = []
+    t = []
     E = []
     for i in range(n):
         F_1 = l_2*p1-l_1*p2*cos(x) #Newton法の準備
@@ -53,10 +56,13 @@ def symplectic_euler(n,a,h,T):#T=[t1,t2,td1,td2]
         if -0.01<td1<0.01:#(d/dt)theta_1=0の場合
             P1.append(q1)
             P2.append(q2)
-    #plt.scatter(P1,P2,marker=".",s=5)#(d/dt)theta_1=0の点の描画
-    #plt.xlabel("theta_1")
-    #plt.ylabel("theta_2")
-    #plt.show()
+            t.append(i/n)
+    plt.scatter(P1,P2,c=t,cmap = cm.jet,marker=".",s=5)#(d/dt)theta_1=0の点の描画
+    plt.xlabel("theta_1")
+    plt.ylabel("theta_2")
+    ax=plt.colorbar()
+    ax.set_label('time rescaled in [0,1]')
+    plt.show()
 
     x1 = [a+h*i for i in range(1,n+1)] #エネルギー(ハミルトニアン)の描画
     plt.plot(x1,E,"-")
